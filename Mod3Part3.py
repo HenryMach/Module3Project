@@ -1,9 +1,9 @@
-training_size = int(input("Training size: "))
-with open('europarl-v7.es-en.en', encoding='utf-8', errors='ignore') as f:
+training_size = int(input("Training size (<= 100): "))
+with open('en_corpus.txt', encoding='utf-8', errors='ignore') as f:
     en_lines = f.readlines()
     en_lines = en_lines[:training_size]
 
-with open('europarl-v7.es-en.es', encoding='utf-8', errors='ignore') as f:
+with open('es_corpus.txt', encoding='utf-8', errors='ignore') as f:
     es_lines = f.readlines()
     es_lines = es_lines[:training_size]
 
