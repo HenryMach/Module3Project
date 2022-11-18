@@ -9,6 +9,16 @@ Original file is located at
 # Functions
 """
 
+# Part of this homework is the ability to write ML code in industry, which can’t be just coming from python notebooks, since we can't run those in production.  Try to break it up into a class (or several) with descriptive names. 
+# 
+# Classes: https://www.dataquest.io/blog/using-classes-in-python/
+
+# import ordering: https://stackoverflow.com/questions/20762662/whats-the-correct-way-to-sort-python-import-x-and-from-x-import-y-statement
+
+# It’s best practice to have your code in a descriptive method or small class, if possible, rather than running at the top-level.  makes it easier for other modules to import the functionality later if needed! 
+
+# 
+
 from datasets import load_dataset
 
 #Get the values for input_ids, token_type_ids, attention_mask
@@ -19,7 +29,7 @@ def tokenize_adjust_labels(all_samples_per_split):
   #can be added to the datasets dict for each train test validation split
   total_adjusted_labels = []
   print(len(tokenized_samples["input_ids"]))
-  for k in range(0, len(tokenized_samples["input_ids"])):
+  for k in range(0, len(tokenized_samples["input_ids"])): # can you use the enumerate function here instead?
     prev_wid = -1
     word_ids_list = tokenized_samples.word_ids(batch_index=k)
     existing_label_ids = all_samples_per_split["ner_tags"][k]
@@ -78,7 +88,7 @@ label_names = dataset["train"].features["ner_tags"].feature.names
 
 pre_model = "bert-base-multilingual-cased"
 
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer # import ordering 
 tokenizer = AutoTokenizer.from_pretrained(pre_model)
 
 tokenized_dataset = dataset.map(tokenize_adjust_labels, batched=True)
