@@ -1,4 +1,8 @@
-# Same comments as previous PRs apply here :) 
+import numpy as np
+from googletrans import Translator
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from nltk.translate.bleu_score import sentence_bleu
+from nltk.translate.bleu_score import SmoothingFunction
 
 training_size = int(input("Training size (<= 100): "))
 with open('en_corpus.txt', encoding='utf-8', errors='ignore') as f:
@@ -10,10 +14,6 @@ with open('es_corpus.txt', encoding='utf-8', errors='ignore') as f:
     es_lines = es_lines[:training_size]
 
 # Google Translator
-import numpy as np
-from nltk.translate.bleu_score import sentence_bleu
-from nltk.translate.bleu_score import SmoothingFunction
-from googletrans import Translator
 translator = Translator()
 
 scores = []
@@ -29,8 +29,6 @@ scores = np.array(scores)
 print('GoogleTrans:', round(scores.mean(), 2), )
 
 # Hugging Face
-
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 tokenizer = AutoTokenizer.from_pretrained("mrm8488/mbart-large-finetuned-opus-es-en-translation")
 model = AutoModelForSeq2SeqLM.from_pretrained("mrm8488/mbart-large-finetuned-opus-es-en-translation")
