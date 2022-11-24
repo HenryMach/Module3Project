@@ -1,25 +1,13 @@
+import numpy as np
+import csv
+import urllib.request
 from transformers import AutoModelForSequenceClassification
 from transformers import TFAutoModelForSequenceClassification
 from transformers import AutoTokenizer
-import numpy as np
 from scipy.special import softmax
-import csv
-import urllib.request
-
-# import ordering: https://stackoverflow.com/questions/20762662/whats-the-correct-way-to-sort-python-import-x-and-from-x-import-y-statement
-
 
 _TASK='sentiment'
 _MODEL = f"cardiffnlp/twitter-roberta-base-{task}"
-# Naming: https://google.github.io/styleguide/pyguide.html#316-naming and https://www.ceos3c.com/python/python-constants/
-
-
-
-# It’s best practice to have your code in a descriptive method or small class, if possible. 
-# makes it easier for other modules to import the functionality later if needed! 
-
-# Classes: https://www.dataquest.io/blog/using-classes-in-python/
-
 
 tokenizer = AutoTokenizer.from_pretrained(_MODEL)
 
@@ -40,8 +28,8 @@ with open('tiny_movie_reviews_dataset.txt') as f:
       scores = softmax(scores)
       ranking = np.argsort(scores)
       ranking = ranking[::-1]
-      l = labels[ranking[0]] # nit: discouraged to have one-letter variables
-      if l == 'neutral':
+      label = labels[ranking[0]]
+      if label == 'neutral':
         print(labels[ranking[1]])
       else:
         print(labels[ranking[0]])
