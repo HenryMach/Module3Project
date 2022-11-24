@@ -1,3 +1,5 @@
+# Same comments as previous PRs apply here :) 
+
 training_size = int(input("Training size (<= 100): "))
 with open('en_corpus.txt', encoding='utf-8', errors='ignore') as f:
     en_lines = f.readlines()
